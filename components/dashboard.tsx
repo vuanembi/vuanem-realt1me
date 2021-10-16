@@ -1,8 +1,8 @@
 import React from 'react';
 import useSWR from 'swr';
 import axios from 'axios';
-import { Wrap, WrapItem, Heading } from '@chakra-ui/react';
 import { capitalize } from 'lodash';
+import { Wrap, WrapItem, Heading, Spinner } from '@chakra-ui/react';
 
 import Metric from './metric';
 
@@ -12,6 +12,9 @@ const Dashboards = () => {
   const { data, error } = useSWR<APIData, Error>('/api/salesOrder', (url) =>
     axios.get(url).then((res) => res.data)
   );
+  if (!error && !data) {
+    return <Spinner size="xl" color="nord.nord0" thickness="0.25rem"/>
+  }
   if (data) {
     const dataArray = data.data;
     const parsedData: Array<DisplayProps> = dataArray[0].map(
