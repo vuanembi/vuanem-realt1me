@@ -30,7 +30,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           }))
           .filter(({ metric }) => metric !== 'trandate')
     );
-    res.status(200).json({ data: parsedData });
+    if (parsedData.length !== 2) {
+      res.status(500).json({ data: parsedData });
+    } else {
+      res.status(200).json({ data: parsedData });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ data: 'oops' });

@@ -2,7 +2,7 @@ import React from 'react';
 import useSWR from 'swr';
 import axios from 'axios';
 import { capitalize } from 'lodash';
-import { Wrap, WrapItem, Heading, Spinner } from '@chakra-ui/react';
+import { VStack, Text, Wrap, WrapItem, Heading, Spinner } from '@chakra-ui/react';
 
 import Metric from './metric';
 
@@ -13,7 +13,7 @@ const Dashboards = () => {
     axios.get(url).then((res) => res.data)
   );
   if (!error && !data) {
-    return <Spinner size="xl" color="nord.nord0" thickness="0.25rem"/>
+    return <Spinner size="xl" color="nord.nord0" thickness="0.25rem" />;
   }
   if (data) {
     const dataArray = data.data;
@@ -37,7 +37,12 @@ const Dashboards = () => {
       </Wrap>
     );
   }
-  return <Heading>{JSON.stringify(error)}</Heading>;
+  return (
+    <VStack textColor="nord.nord0">
+      <Heading>No Data for Today</Heading>
+      <Text>{JSON.stringify(error, null, 4)}</Text>
+    </VStack>
+  );
 };
 
 export default Dashboards;
