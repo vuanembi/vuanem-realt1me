@@ -11,7 +11,7 @@ dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 
 const salesOrder: ScriptSettings = {
-  script: 997,
+  script: 1098,
   deployment: 1,
 };
 
